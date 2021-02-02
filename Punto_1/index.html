@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Curso ajax 1</title>
+</head>
+<body>
+<button onclick="ejecutarAjax()">Haz clic</button>
+<div id="info"></div>
+	<script type="text/javascript">
+		
+     	function ejecutarAjax()
+		{
+		  /*var ajaxRequest;
+			if (windows.XMLHttpRequest()) {//Si se trabaja con navegador moderno
+				ajaxRequest = new XMLHttpRequest();
+			}else{//Para navegadores antiguos
+				ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+			} */
+
+			//pero como trabajamos con modernos, directamente
+			var ajaxRequest = new XMLHttpRequest();
+			ajaxRequest.onreadystatechange =  function() {//función anonima
+				if (ajaxRequest.readyState == 4 ) {//si la petición ha sido finalizada y exitosa
+					document.getElementById("info").innerHTML = ajaxRequest.responseText; //"info" es por el id del div
+				}
+			}
+
+            ajaxRequest.open("GET","documento.txt");
+			ajaxRequest.send();
+            
+            // en "ajaxRequest.open("GET","documento.txt")" la explicación es: como se va a obtener información se hace uso del método get, la información se toma de "documento.txt", con "true" decimos que nuestra petición va a ser asincrona (no se va a recargar la pantalla)
+
+			// "onreadystatechange" se encarga de procesar la respuesta enviada por el servidor
+			
+			//"readyState" puede tener 5 estados:
+			// 0 Peticion no ha sido inicializada
+			// 1 Peticion ha sido establecida
+            // 2 Peticion ha sido enviada
+            // 3 Peticion está siendo prosesada
+            // 4 Peticion ha sido finalizada
+		}
+
+	</script>
+
+</body>
+</html>
